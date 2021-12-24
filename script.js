@@ -3,9 +3,7 @@ depending on button, assign pIndex
 compare as usual
 update score by textContent 
  */
-const rock = document.getElementById('rock-button'); 
-const paper = document.getElementById('paper-button'); 
-const scissors = document.getElementById('scissors-button');
+let buttons = document.querySelectorAll('.rpsButton'); 
 let playerScore = document.getElementById('player-score'); 
 let computerScore = document.getElementById('computer-score'); 
 let roundsLeft = document.getElementById('rounds-left'); 
@@ -16,59 +14,24 @@ let remainingRounds = 5;
 let pScore = 0; 
 let cScore = 0; 
 
-rock.addEventListener('click', () => {
-    if (remainingRounds > 1){
-        remainingRounds--; 
-        roundsLeft.textContent = remainingRounds; 
-    
-        playerPlay(computerPlay(), 0); 
-
-    } else if (remainingRounds == 1){
-        remainingRounds--; 
-        roundsLeft.textContent = remainingRounds; 
-    
-        playerPlay(computerPlay(), 0); 
-        endGame(); 
-    } else {
-
-    }
-
-   
-}); 
-paper.addEventListener('click', () =>{ 
-    if (remainingRounds > 1){
-        remainingRounds--; 
-        roundsLeft.textContent = remainingRounds; 
-
-        playerPlay(computerPlay(), 1); 
-    } else if (remainingRounds == 1){
-        remainingRounds--; 
-        roundsLeft.textContent = remainingRounds; 
-    
-        playerPlay(computerPlay(), 1); 
-        endGame(); 
-    } else {
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (remainingRounds > 1){
+            remainingRounds--; 
+            roundsLeft.textContent = remainingRounds; 
         
-    } 
-}); 
-
-scissors.addEventListener('click', () => { 
-    if (remainingRounds > 1){
-        remainingRounds--; 
-        roundsLeft.textContent = remainingRounds; 
-
-        playerPlay(computerPlay(), 2); 
-
-    } else if (remainingRounds == 1){
-        remainingRounds--; 
-        roundsLeft.textContent = remainingRounds; 
+            playerPlay(computerPlay(), parseInt(button.id)); 
     
-        playerPlay(computerPlay(), 2); 
-        endGame(); 
-    } else {
+        } else if (remainingRounds == 1){
+            remainingRounds--; 
+            roundsLeft.textContent = remainingRounds; 
         
-    }
-});
+            playerPlay(computerPlay(), parseInt(button.id)); 
+            endGame(); 
+        } else {
+        }  
+    }); 
+}); 
 
 function computerPlay() {
     let index = Math.floor(Math.random()*3); 
